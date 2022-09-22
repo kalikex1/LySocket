@@ -1,6 +1,16 @@
 # LySocket 远程Shell植入远控
 
-LySocket 是一款使用纯WindowsAPI实现的命令行版远程控制工具，该工具通过最少的代码实现了套接字的批量管理操作，用户可以指定对特定进程进行远程注入，只要对端客户端能一直运行，则MSF攻击载荷可以很方便的注入并被运行。
+<br>
+
+<div align=center>
+
+![logo](https://user-images.githubusercontent.com/52789403/191662936-77e48078-82ed-4d9b-8ae2-c1df303ed5aa.png)
+
+</div>
+
+<br>
+
+LySocket 是一款使用纯 `WindowsAPI` 实现的命令行版远程控制工具，该工具通过最少的代码实现了套接字的批量管理操作，用户可以指定对远程主机内特定进程注入`ShellCode`载荷，只要对端`LyClient`客户端能一直运行，则`Metasploit`攻击载荷就可以很方便的注入到目标主机任意的进程内反弹。
 
 首先需要通过`Metasploit`工具生成一个有效载荷。
 ```
